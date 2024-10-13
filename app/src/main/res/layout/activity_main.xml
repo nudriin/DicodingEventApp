@@ -16,6 +16,7 @@
         android:paddingVertical="6dp"
         android:background="@drawable/bg_rounded"
         app:itemTextColor="@drawable/nav_item_color"
+        app:itemIconTint="@drawable/nav_item_color"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
