@@ -7,9 +7,9 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.nudriin.dicodingeventapp.data.response.ListEventsItem
-import com.nudriin.dicodingeventapp.databinding.HomeEventCardBinding
+import com.nudriin.dicodingeventapp.databinding.HomeEventFinishedCardBinding
 
-class HomeListAdapter : ListAdapter<ListEventsItem, HomeListAdapter.ViewHolder>(DIFF_CALLBACK) {
+class HomeFinishedListAdapter : ListAdapter<ListEventsItem, HomeFinishedListAdapter.ViewHolder>(DIFF_CALLBACK) {
 
     interface OnItemClickCallback {
         fun onItemClicked(eventId: String)
@@ -33,7 +33,7 @@ class HomeListAdapter : ListAdapter<ListEventsItem, HomeListAdapter.ViewHolder>(
             }
         }
     }
-    class ViewHolder(val binding: HomeEventCardBinding): RecyclerView.ViewHolder(binding.root) {
+    class ViewHolder(val binding: HomeEventFinishedCardBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(event: ListEventsItem) {
             Glide.with(binding.root.context)
                 .load(event.imageLogo)
@@ -43,17 +43,18 @@ class HomeListAdapter : ListAdapter<ListEventsItem, HomeListAdapter.ViewHolder>(
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeListAdapter.ViewHolder {
-        val binding = HomeEventCardBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeFinishedListAdapter.ViewHolder {
+        val binding = HomeEventFinishedCardBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: HomeListAdapter.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: HomeFinishedListAdapter.ViewHolder, position: Int) {
         val event = getItem(position)
         holder.bind(event)
         holder.itemView.setOnClickListener {
             onItemClickCallback.onItemClicked(event.id.toString())
         }
+
     }
 
     fun setOnItemClickCallback(onItemClickCallback: OnItemClickCallback) {
