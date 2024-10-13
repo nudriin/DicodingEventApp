@@ -20,7 +20,7 @@ class FinishedViewModel : ViewModel() {
     val isLoading: LiveData<Boolean> = _isLoading
 
     companion object {
-        private const val TAG = "UpcomingViewModel"
+        private const val TAG = "FinishedViewModel"
     }
 
     init {
@@ -32,6 +32,28 @@ class FinishedViewModel : ViewModel() {
 
         val client = ApiConfig.getApiService().getAllEvents("0")
         client.enqueue(object: Callback<EventResponse> {
+            override fun onResponse(call: Call<EventResponse>, response: Response<EventResponse>) {
+                _isLoading.value = false
+                if(response.isSuccessful && response.body() != null){
+                    val body = response.body()
+
+                    _eventList.value = body?.listEvents
+                }
+            }
+
+            override fun onFailure(call: Call<EventResponse>, t: Throwable) {
+                _isLoading.value = false
+                Log.e(TAG, "onFailure: ${t.message}")
+            }
+
+        })
+    }
+
+    fun searchFinishedEvent(searchQ: String) {
+        _isLoading.value = true
+
+        val client = ApiConfig.getApiService().searchEvents("-1", searchQ)
+        client.enqueue(object : Callback<EventResponse> {
             override fun onResponse(call: Call<EventResponse>, response: Response<EventResponse>) {
                 _isLoading.value = false
                 if(response.isSuccessful && response.body() != null){

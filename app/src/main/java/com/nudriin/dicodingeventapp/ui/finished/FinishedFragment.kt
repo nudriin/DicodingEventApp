@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
@@ -14,9 +13,7 @@ import com.nudriin.dicodingeventapp.EventListAdapter
 import com.nudriin.dicodingeventapp.SearchBarListener
 import com.nudriin.dicodingeventapp.data.response.ListEventsItem
 import com.nudriin.dicodingeventapp.databinding.FragmentFinishedBinding
-import com.nudriin.dicodingeventapp.databinding.FragmentUpcomingBinding
-import com.nudriin.dicodingeventapp.ui.upcoming.UpcomingFragmentDirections
-import com.nudriin.dicodingeventapp.ui.upcoming.UpcomingViewModel
+
 
 class FinishedFragment : Fragment() {
 
@@ -69,8 +66,8 @@ class FinishedFragment : Fragment() {
 
         viewModel.eventList.observe(viewLifecycleOwner){eventList ->
             setEventList(eventList)
+            searchEvent()
         }
-
     }
 
     private fun setEventList(eventList: List<ListEventsItem>){
@@ -95,6 +92,17 @@ class FinishedFragment : Fragment() {
     private fun moveToDetail(eventId: String) {
         val toDetail = FinishedFragmentDirections.actionNavigationFinishedToDetailFragment(eventId)
         Navigation.findNavController(binding.root).navigate(toDetail)
+    }
+
+    private fun searchEvent() {
+        val searchView = searchViewListener?.getSearchView()
+        val searchBar = searchViewListener?.getSearchBar()
+        searchView?.editText?.setOnEditorActionListener { v, actionId, event ->
+            searchBar?.setText(searchView.text)
+            searchView.hide()
+            viewModel.searchFinishedEvent(searchView.text.toString())
+            false
+        }
     }
 
     override fun onDestroyView() {
