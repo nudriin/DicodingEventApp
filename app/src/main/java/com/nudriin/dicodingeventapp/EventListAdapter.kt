@@ -10,6 +10,12 @@ import com.nudriin.dicodingeventapp.data.response.ListEventsItem
 import com.nudriin.dicodingeventapp.databinding.EventCardBinding
 
 class EventListAdapter: ListAdapter<ListEventsItem, EventListAdapter.ViewHolder>(DIFF_CALLBACK) {
+
+    interface OnItemClickCallback {
+        fun onItemClicked(eventId: String)
+    }
+
+    private lateinit var onItemClickCallback: OnItemClickCallback
     companion object {
         val DIFF_CALLBACK = object : DiffUtil.ItemCallback<ListEventsItem>() {
             override fun areItemsTheSame(
@@ -47,5 +53,12 @@ class EventListAdapter: ListAdapter<ListEventsItem, EventListAdapter.ViewHolder>
     override fun onBindViewHolder(holder: EventListAdapter.ViewHolder, position: Int) {
         val event = getItem(position)
         holder.bind(event)
+        holder.itemView.setOnClickListener {
+            onItemClickCallback.onItemClicked(event.id.toString())
+        }
+    }
+
+    fun setOnItemClickCallback(onItemClickCallback: OnItemClickCallback) {
+        this.onItemClickCallback = onItemClickCallback
     }
 }

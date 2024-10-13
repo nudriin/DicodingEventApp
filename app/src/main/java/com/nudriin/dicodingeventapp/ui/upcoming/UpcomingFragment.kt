@@ -7,10 +7,13 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.nudriin.dicodingeventapp.EventListAdapter
 import com.nudriin.dicodingeventapp.data.response.ListEventsItem
 import com.nudriin.dicodingeventapp.databinding.FragmentUpcomingBinding
+import com.nudriin.dicodingeventapp.ui.detail.DetailFragment
+import com.nudriin.dicodingeventapp.ui.detail.DetailFragmentArgs
 
 class UpcomingFragment : Fragment() {
 
@@ -50,6 +53,12 @@ class UpcomingFragment : Fragment() {
         val adapter = EventListAdapter()
         adapter.submitList(eventList)
         binding.rvUpcoming.adapter = adapter
+
+        adapter.setOnItemClickCallback(object : EventListAdapter.OnItemClickCallback{
+            override fun onItemClicked(eventId: String) {
+                moveToDetail(eventId)
+            }
+        })
     }
 
     private fun showLoading(isLoading: Boolean) {
@@ -58,6 +67,11 @@ class UpcomingFragment : Fragment() {
         } else {
             binding.progressBar.visibility = View.GONE
         }
+    }
+
+    private fun moveToDetail(eventId: String) {
+        val toDetail = UpcomingFragmentDirections.actionNavigationUpcomingToDetailFragment(eventId)
+        Navigation.findNavController(binding.root).navigate(toDetail)
     }
 
     override fun onDestroyView() {
