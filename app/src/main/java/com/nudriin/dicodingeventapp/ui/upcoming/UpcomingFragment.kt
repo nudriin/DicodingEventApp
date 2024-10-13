@@ -67,6 +67,7 @@ class UpcomingFragment : Fragment() {
 
         viewModel.eventList.observe(viewLifecycleOwner){eventList ->
             setEventList(eventList)
+            searchEvent()
         }
 
     }
@@ -94,6 +95,17 @@ class UpcomingFragment : Fragment() {
     private fun moveToDetail(eventId: String) {
         val toDetail = UpcomingFragmentDirections.actionNavigationUpcomingToDetailFragment(eventId)
         Navigation.findNavController(binding.root).navigate(toDetail)
+    }
+
+    private fun searchEvent() {
+        val searchView = searchViewListener?.getSearchView()
+        val searchBar = searchViewListener?.getSearchBar()
+        searchView?.editText?.setOnEditorActionListener { v, actionId, event ->
+            searchBar?.setText(searchView.text)
+            searchView.hide()
+            viewModel.searchUpcomingEvent(searchView.text.toString())
+            false
+        }
     }
 
     override fun onDestroyView() {

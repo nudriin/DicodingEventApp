@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import com.nudriin.dicodingeventapp.data.response.EventResponse
 import com.nudriin.dicodingeventapp.data.response.ListEventsItem
 import com.nudriin.dicodingeventapp.data.retrofit.ApiConfig
+import com.nudriin.dicodingeventapp.ui.finished.FinishedViewModel
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -32,6 +33,28 @@ class UpcomingViewModel : ViewModel() {
 
         val client = ApiConfig.getApiService().getAllEvents("1")
         client.enqueue(object: Callback<EventResponse> {
+            override fun onResponse(call: Call<EventResponse>, response: Response<EventResponse>) {
+                _isLoading.value = false
+                if(response.isSuccessful && response.body() != null){
+                    val body = response.body()
+
+                    _eventList.value = body?.listEvents
+                }
+            }
+
+            override fun onFailure(call: Call<EventResponse>, t: Throwable) {
+                _isLoading.value = false
+                Log.e(TAG, "onFailure: ${t.message}")
+            }
+
+        })
+    }
+
+    fun searchUpcomingEvent(searchQ: String) {
+        _isLoading.value = true
+
+        val client = ApiConfig.getApiService().searchEvents("1", searchQ)
+        client.enqueue(object : Callback<EventResponse> {
             override fun onResponse(call: Call<EventResponse>, response: Response<EventResponse>) {
                 _isLoading.value = false
                 if(response.isSuccessful && response.body() != null){
