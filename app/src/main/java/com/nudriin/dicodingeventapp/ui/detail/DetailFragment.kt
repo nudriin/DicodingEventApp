@@ -1,11 +1,14 @@
 package com.nudriin.dicodingeventapp.ui.detail
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.text.HtmlCompat
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
@@ -45,7 +48,16 @@ class DetailFragment : Fragment() {
                 setEventDetail(event)
             }
         }
-        Log.d("EventId", id)
+
+        binding.btnRegister.setOnClickListener {
+            val url = viewModel.eventDetail.value?.link
+            if (url != null && url.isNotEmpty()) {
+                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+                startActivity(intent)
+            } else {
+                Toast.makeText(context, "Link tidak tersedia!", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
     private fun setEventDetail(eventDetail: Event){
