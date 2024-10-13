@@ -10,6 +10,7 @@ import androidx.core.text.HtmlCompat
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
 import com.nudriin.dicodingeventapp.EventListAdapter
+import com.nudriin.dicodingeventapp.MainActivity
 import com.nudriin.dicodingeventapp.R
 import com.nudriin.dicodingeventapp.data.response.Event
 import com.nudriin.dicodingeventapp.data.response.ListEventsItem
@@ -53,23 +54,25 @@ class DetailFragment : Fragment() {
             .into(binding.eventImg)
 
         with (binding) {
-        tvTitle.text = eventDetail.name
-        tvAuthor.text = eventDetail.ownerName
-        tvSummary.text = eventDetail.summary
-        tvBeginTime.text = eventDetail.beginTime
-        tvQuota.text = eventDetail.quota.toString()
-        tvDescription.text = HtmlCompat.fromHtml(
-            eventDetail.description.toString(),
-            HtmlCompat.FROM_HTML_MODE_LEGACY
-        )
+            tvTitle.text = eventDetail.name
+            tvAuthor.text = resources.getString(R.string.author, eventDetail.ownerName)
+            tvSummary.text = eventDetail.summary
+            tvBeginTime.text = resources.getString(R.string.begin_time, eventDetail.beginTime)
+            tvQuota.text = resources.getString(R.string.quota, eventDetail.quota)
+            tvDescription.text = HtmlCompat.fromHtml(
+                eventDetail.description.toString(),
+                HtmlCompat.FROM_HTML_MODE_LEGACY
+            )
         }
     }
 
     private fun showLoading(isLoading: Boolean) {
         if (isLoading) {
             binding.progressBar.visibility = View.VISIBLE
+            binding.btnRegister.visibility = View.GONE
         } else {
             binding.progressBar.visibility = View.GONE
+            binding.btnRegister.visibility = View.VISIBLE
         }
     }
 }
