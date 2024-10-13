@@ -1,13 +1,13 @@
-package com.nudriin.dicodingeventapp.ui.notifications
+package com.nudriin.dicodingeventapp.ui.finished
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class NotificationsViewModel : ViewModel() {
+class FinishedViewModel : ViewModel() {
 
     private val _text = MutableLiveData<String>().apply {
-        value = "This is notifications Fragment"
+        value = "This is finish Fragment"
     }
     val text: LiveData<String> = _text
 }
