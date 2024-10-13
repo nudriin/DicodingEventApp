@@ -1,5 +1,6 @@
 package com.nudriin.dicodingeventapp.ui.upcoming
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.nudriin.dicodingeventapp.EventListAdapter
+import com.nudriin.dicodingeventapp.SearchBarListener
 import com.nudriin.dicodingeventapp.data.response.ListEventsItem
 import com.nudriin.dicodingeventapp.databinding.FragmentUpcomingBinding
 import com.nudriin.dicodingeventapp.ui.detail.DetailFragment
@@ -21,6 +23,26 @@ class UpcomingFragment : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var viewModel: UpcomingViewModel
+    private var searchViewListener: SearchBarListener? = null
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if (context is SearchBarListener) {
+            searchViewListener = context
+        } else {
+            throw RuntimeException("$context must implement SearchViewListener")
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        searchViewListener?.showSearchView()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        searchViewListener?.hideSearchView()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
