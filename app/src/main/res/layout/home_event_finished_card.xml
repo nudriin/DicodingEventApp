@@ -27,13 +27,16 @@
         <TextView
             android:id="@+id/tvTitle"
             style="@style/Text.Title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:layout_marginStart="16dp"
-            android:textSize="16sp"
+            android:paddingVertical="8dp"
+            android:textSize="14sp"
+            card_view:layout_constraintVertical_bias="0.0"
             card_view:layout_constraintBottom_toBottomOf="parent"
-            card_view:layout_constraintStart_toEndOf="@id/eventImg"
             card_view:layout_constraintTop_toTopOf="parent"
+            card_view:layout_constraintStart_toEndOf="@id/eventImg"
+            card_view:layout_constraintEnd_toEndOf="parent"
             tools:text="Title" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
