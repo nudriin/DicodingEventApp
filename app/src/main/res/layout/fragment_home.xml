@@ -37,7 +37,7 @@
                     tools:src="@tools:sample/avatars"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    />
+                    android:importantForAccessibility="no" />
 
                 <TextView
                     android:id="@+id/dicodingEventTxt"

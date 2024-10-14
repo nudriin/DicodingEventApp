@@ -33,7 +33,8 @@
                 android:scaleType="centerCrop"
                 card_view:layout_constraintStart_toStartOf="parent"
                 card_view:layout_constraintTop_toTopOf="parent"
-                tools:src="@tools:sample/avatars" />
+                tools:src="@tools:sample/avatars"
+                android:importantForAccessibility="no" />
         </androidx.cardview.widget.CardView>
 
 

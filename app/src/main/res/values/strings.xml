@@ -3,7 +3,7 @@
     <string name="title_home">Home</string>
     <string name="title_upcoming">Upcoming</string>
     <string name="title_finished">Finished</string>
-    <string name="searchbar_hint">Masukkan kata</string>
+    <string name="searchbar_hint">Ketikan Sesuatu</string>
     <string name="author">Oleh: %s</string>
     <string name="location">Lokasi: %s</string>
     <string name="begin_time">Dimulai: %s</string>

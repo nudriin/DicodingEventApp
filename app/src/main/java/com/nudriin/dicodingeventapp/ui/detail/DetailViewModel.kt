@@ -7,7 +7,6 @@ import androidx.lifecycle.ViewModel
 import com.nudriin.dicodingeventapp.data.response.Event
 import com.nudriin.dicodingeventapp.data.response.EventDetailResponse
 import com.nudriin.dicodingeventapp.data.retrofit.ApiConfig
-import com.nudriin.dicodingeventapp.ui.finished.FinishedViewModel
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -18,6 +17,9 @@ class DetailViewModel : ViewModel() {
 
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
+
+    private val _toastText = MutableLiveData<com.nudriin.dicodingeventapp.util.Event<String>>()
+    val toastText: LiveData<com.nudriin.dicodingeventapp.util.Event<String>> = _toastText
 
     companion object {
         private const val TAG = "DetailViewModel"
@@ -41,6 +43,7 @@ class DetailViewModel : ViewModel() {
 
             override fun onFailure(call: Call<EventDetailResponse>, t: Throwable) {
                 _isLoading.value = false
+                _toastText.value = com.nudriin.dicodingeventapp.util.Event(t.message.toString())
                 Log.e(TAG, "onFailure: ${t.message}")
             }
 
