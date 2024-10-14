@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
@@ -68,6 +69,16 @@ class UpcomingFragment : Fragment() {
         viewModel.eventList.observe(viewLifecycleOwner){eventList ->
             setEventList(eventList)
             searchEvent()
+        }
+
+        viewModel.toastText.observe(viewLifecycleOwner) {
+            it.getContentIfNotHandled()?.let { toastText ->
+                Toast.makeText(
+                    context,
+                    toastText,
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
         }
 
     }

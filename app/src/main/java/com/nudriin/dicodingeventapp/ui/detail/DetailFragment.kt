@@ -49,6 +49,16 @@ class DetailFragment : Fragment() {
             }
         }
 
+        viewModel.toastText.observe(viewLifecycleOwner) {
+            it.getContentIfNotHandled()?.let { toastText ->
+                Toast.makeText(
+                    context,
+                    toastText,
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        }
+
         binding.btnRegister.setOnClickListener {
             val url = viewModel.eventDetail.value?.link
             if (url != null && url.isNotEmpty()) {

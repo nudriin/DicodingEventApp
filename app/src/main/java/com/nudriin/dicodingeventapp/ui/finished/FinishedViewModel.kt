@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import com.nudriin.dicodingeventapp.data.response.EventResponse
 import com.nudriin.dicodingeventapp.data.response.ListEventsItem
 import com.nudriin.dicodingeventapp.data.retrofit.ApiConfig
+import com.nudriin.dicodingeventapp.util.Event
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -18,6 +19,9 @@ class FinishedViewModel : ViewModel() {
 
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
+
+    private val _toastText = MutableLiveData<Event<String>>()
+    val toastText: LiveData<Event<String>> = _toastText
 
     companion object {
         private const val TAG = "FinishedViewModel"
@@ -36,13 +40,16 @@ class FinishedViewModel : ViewModel() {
                 _isLoading.value = false
                 if(response.isSuccessful && response.body() != null){
                     val body = response.body()
-
+                    if(body?.listEvents?.size == 0){
+                        _toastText.value = Event("Data tidak ditemukan")
+                    }
                     _eventList.value = body?.listEvents
                 }
             }
 
             override fun onFailure(call: Call<EventResponse>, t: Throwable) {
                 _isLoading.value = false
+                _toastText.value = Event(t.message.toString())
                 Log.e(TAG, "onFailure: ${t.message}")
             }
 
@@ -58,13 +65,16 @@ class FinishedViewModel : ViewModel() {
                 _isLoading.value = false
                 if(response.isSuccessful && response.body() != null){
                     val body = response.body()
-
+                    if(body?.listEvents?.size == 0){
+                        _toastText.value = Event("Data tidak ditemukan")
+                    }
                     _eventList.value = body?.listEvents
                 }
             }
 
             override fun onFailure(call: Call<EventResponse>, t: Throwable) {
                 _isLoading.value = false
+                _toastText.value = Event(t.message.toString())
                 Log.e(TAG, "onFailure: ${t.message}")
             }
 
