@@ -80,11 +80,20 @@ class DetailFragment : Fragment() {
 
     private fun showLoading(isLoading: Boolean) {
         if (isLoading) {
-            binding.progressBar.visibility = View.VISIBLE
-            binding.btnRegister.visibility = View.GONE
+            with(binding) {
+                progressBar.visibility = View.VISIBLE
+                btnRegister.visibility = View.GONE
+                tvBeginTime.visibility= View.GONE
+                tvQuota.visibility= View.GONE
+            }
+
         } else {
-            binding.progressBar.visibility = View.GONE
-            binding.btnRegister.visibility = View.VISIBLE
+            with(binding) {
+                progressBar.visibility = View.GONE
+                btnRegister.visibility = View.VISIBLE
+                tvBeginTime.visibility= View.VISIBLE
+                tvQuota.visibility= View.VISIBLE
+            }
         }
     }
 }
