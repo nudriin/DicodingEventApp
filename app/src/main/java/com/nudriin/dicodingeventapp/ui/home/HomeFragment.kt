@@ -64,6 +64,11 @@ class HomeFragment : Fragment() {
             .into(binding.dicodingImg)
     }
 
+    private fun moveToDetail(eventId: String) {
+        val toDetail = HomeFragmentDirections.actionNavigationHomeToDetailFragment(eventId)
+        Navigation.findNavController(binding.root).navigate(toDetail)
+    }
+
     private fun setUpcomingEventList(eventList: List<ListEventsItem>){
         val adapter = HomeListAdapter()
         val max5 = eventList.take(5)
@@ -95,10 +100,6 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun moveToDetail(eventId: String) {
-        val toDetail = HomeFragmentDirections.actionNavigationHomeToDetailFragment(eventId)
-        Navigation.findNavController(binding.root).navigate(toDetail)
-    }
 
     override fun onDestroyView() {
         super.onDestroyView()
