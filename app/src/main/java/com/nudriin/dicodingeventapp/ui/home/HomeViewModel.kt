@@ -7,7 +7,6 @@ import androidx.lifecycle.ViewModel
 import com.nudriin.dicodingeventapp.data.response.EventResponse
 import com.nudriin.dicodingeventapp.data.response.ListEventsItem
 import com.nudriin.dicodingeventapp.data.retrofit.ApiConfig
-import com.nudriin.dicodingeventapp.ui.finished.FinishedViewModel
 import com.nudriin.dicodingeventapp.util.Event
 import retrofit2.Call
 import retrofit2.Callback

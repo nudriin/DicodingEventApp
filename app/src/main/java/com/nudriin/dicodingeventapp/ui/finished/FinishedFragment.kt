@@ -50,8 +50,7 @@ class FinishedFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentFinishedBinding.inflate(inflater, container, false)
-        val root: View = binding.root
-        return root
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -108,7 +107,7 @@ class FinishedFragment : Fragment() {
     private fun searchEvent() {
         val searchView = searchViewListener?.getSearchView()
         val searchBar = searchViewListener?.getSearchBar()
-        searchView?.editText?.setOnEditorActionListener { v, actionId, event ->
+        searchView?.editText?.setOnEditorActionListener { _, _, _ ->
             searchBar?.setText(searchView.text)
             searchView.hide()
             viewModel.searchFinishedEvent(searchView.text.toString())

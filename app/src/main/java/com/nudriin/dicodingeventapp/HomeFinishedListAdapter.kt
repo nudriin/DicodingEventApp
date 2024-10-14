@@ -33,7 +33,7 @@ class HomeFinishedListAdapter : ListAdapter<ListEventsItem, HomeFinishedListAdap
             }
         }
     }
-    class ViewHolder(val binding: HomeEventFinishedCardBinding): RecyclerView.ViewHolder(binding.root) {
+    class ViewHolder(private val binding: HomeEventFinishedCardBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(event: ListEventsItem) {
             with(binding) {
                 Glide.with(root.context)

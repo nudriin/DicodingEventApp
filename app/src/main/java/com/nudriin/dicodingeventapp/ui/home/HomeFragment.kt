@@ -14,8 +14,6 @@ import com.nudriin.dicodingeventapp.HomeFinishedListAdapter
 import com.nudriin.dicodingeventapp.HomeListAdapter
 import com.nudriin.dicodingeventapp.data.response.ListEventsItem
 import com.nudriin.dicodingeventapp.databinding.FragmentHomeBinding
-import com.nudriin.dicodingeventapp.ui.detail.DetailFragmentArgs
-import com.nudriin.dicodingeventapp.ui.upcoming.UpcomingFragmentDirections
 
 class HomeFragment : Fragment() {
 
@@ -29,8 +27,7 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
-        val root: View = binding.root
-        return root
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -15,8 +14,6 @@ import com.nudriin.dicodingeventapp.EventListAdapter
 import com.nudriin.dicodingeventapp.SearchBarListener
 import com.nudriin.dicodingeventapp.data.response.ListEventsItem
 import com.nudriin.dicodingeventapp.databinding.FragmentUpcomingBinding
-import com.nudriin.dicodingeventapp.ui.detail.DetailFragment
-import com.nudriin.dicodingeventapp.ui.detail.DetailFragmentArgs
 
 class UpcomingFragment : Fragment() {
 
@@ -51,8 +48,7 @@ class UpcomingFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentUpcomingBinding.inflate(inflater, container, false)
-        val root: View = binding.root
-        return root
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -111,7 +107,7 @@ class UpcomingFragment : Fragment() {
     private fun searchEvent() {
         val searchView = searchViewListener?.getSearchView()
         val searchBar = searchViewListener?.getSearchBar()
-        searchView?.editText?.setOnEditorActionListener { v, actionId, event ->
+        searchView?.editText?.setOnEditorActionListener { _, _, _ ->
             searchBar?.setText(searchView.text)
             searchView.hide()
             viewModel.searchUpcomingEvent(searchView.text.toString())
