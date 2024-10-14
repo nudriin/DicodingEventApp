@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.nudriin.dicodingeventapp.HomeFinishedListAdapter
@@ -14,6 +15,7 @@ import com.nudriin.dicodingeventapp.HomeListAdapter
 import com.nudriin.dicodingeventapp.data.response.ListEventsItem
 import com.nudriin.dicodingeventapp.databinding.FragmentHomeBinding
 import com.nudriin.dicodingeventapp.ui.detail.DetailFragmentArgs
+import com.nudriin.dicodingeventapp.ui.upcoming.UpcomingFragmentDirections
 
 class HomeFragment : Fragment() {
 
@@ -72,7 +74,7 @@ class HomeFragment : Fragment() {
         binding.rvUpcoming.adapter = adapter
         adapter.setOnItemClickCallback(object : HomeListAdapter.OnItemClickCallback{
             override fun onItemClicked(eventId: String) {
-//                moveToDetail(eventId)
+                moveToDetail(eventId)
             }
         })
     }
@@ -83,7 +85,7 @@ class HomeFragment : Fragment() {
         binding.rvFinished.adapter = adapter
         adapter.setOnItemClickCallback(object : HomeFinishedListAdapter.OnItemClickCallback{
             override fun onItemClicked(eventId: String) {
-//                moveToDetail(eventId)
+                moveToDetail(eventId)
             }
         })
     }
@@ -94,6 +96,11 @@ class HomeFragment : Fragment() {
         } else {
             binding.progressBar.visibility = View.GONE
         }
+    }
+
+    private fun moveToDetail(eventId: String) {
+        val toDetail = HomeFragmentDirections.actionNavigationHomeToDetailFragment(eventId)
+        Navigation.findNavController(binding.root).navigate(toDetail)
     }
 
     override fun onDestroyView() {
