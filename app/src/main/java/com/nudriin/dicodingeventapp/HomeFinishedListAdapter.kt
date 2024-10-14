@@ -35,11 +35,17 @@ class HomeFinishedListAdapter : ListAdapter<ListEventsItem, HomeFinishedListAdap
     }
     class ViewHolder(val binding: HomeEventFinishedCardBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(event: ListEventsItem) {
-            Glide.with(binding.root.context)
-                .load(event.imageLogo)
-                .into(binding.eventImg)
+            with(binding) {
+                Glide.with(root.context)
+                    .load(event.mediaCover)
+                    .into(eventImg)
 
-            binding.tvTitle.text = event.name
+                tvTitle.text = event.name
+                tvBegin.text = event.beginTime
+                tvLocation.text = event.cityName
+                tvQuota.text = root.resources.getString(R.string.quota, event.quota)
+
+            }
         }
     }
 
