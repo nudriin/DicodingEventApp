@@ -68,7 +68,7 @@ class UpcomingViewModel : ViewModel() {
                     if(body?.listEvents?.size == 0){
                         _toastText.value = Event("Data tidak ditemukan")
                     }
-                    _eventList.value = body?.listEvents
+
                 }
             }
 

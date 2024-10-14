@@ -69,6 +69,7 @@ class FinishedFragment : Fragment() {
             searchEvent()
         }
 
+
         viewModel.toastText.observe(viewLifecycleOwner) {
             it.getContentIfNotHandled()?.let { toastText ->
                 Toast.makeText(

@@ -62,6 +62,12 @@ class HomeFragment : Fragment() {
         Glide.with(binding.root.context)
             .load(url)
             .into(binding.dicodingImg)
+
+        viewModel.toastText.observe(viewLifecycleOwner){
+            it.getContentIfNotHandled()?.let { toastText ->
+                Toast.makeText(context, toastText, Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
     private fun moveToDetail(eventId: String) {

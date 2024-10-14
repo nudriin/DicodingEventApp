@@ -76,6 +76,7 @@ class FinishedViewModel : ViewModel() {
                 _isLoading.value = false
                 _toastText.value = Event(t.message.toString())
                 Log.e(TAG, "onFailure: ${t.message}")
+                _toastText.value = Event(t.message.toString())
             }
 
         })

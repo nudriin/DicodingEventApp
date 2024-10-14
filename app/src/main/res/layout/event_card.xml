@@ -37,6 +37,7 @@
                     android:layout_height="200dp"
                     android:scaleType="centerCrop"
                     tools:src="@tools:sample/avatars"
+
                     tools:ignore="ContentDescription" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
