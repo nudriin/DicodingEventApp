@@ -8,6 +8,7 @@
     <string name="location">Lokasi: %s</string>
     <string name="begin_time">Dimulai: %s</string>
     <string name="quota">Kuota: %d</string>
+    <string name="quota_remainder">Sisa Kuota: %d</string>
     <string name="register_btn">Daftar Sekarang</string>
     <string name="dicoding_event">Dicoding Event</string>
     <string name="header_heading">Kembangkan Jaringan dan Belajar dari Developer Terbaik</string>

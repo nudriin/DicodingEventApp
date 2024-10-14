@@ -37,8 +37,9 @@
                     tools:src="@tools:sample/avatars"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    android:importantForAccessibility="no" />
 
+                    tools:ignore="ContentDescription" />
+              
                 <TextView
                     android:id="@+id/dicodingEventTxt"
                     android:layout_width="0dp"
@@ -132,7 +133,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:visibility="visible" />
+            tools:visibility="visible"
+            android:translationZ="1dp"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>
 

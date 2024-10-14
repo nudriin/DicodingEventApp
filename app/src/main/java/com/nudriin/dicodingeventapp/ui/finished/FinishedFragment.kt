@@ -69,9 +69,14 @@ class FinishedFragment : Fragment() {
             searchEvent()
         }
 
-        viewModel.toastText.observe(viewLifecycleOwner){
+
+        viewModel.toastText.observe(viewLifecycleOwner) {
             it.getContentIfNotHandled()?.let { toastText ->
-                Toast.makeText(context, toastText, Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    context,
+                    toastText,
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }
     }

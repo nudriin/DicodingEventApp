@@ -43,9 +43,14 @@ class DetailFragment : Fragment() {
             }
         }
 
-        viewModel.toastText.observe(viewLifecycleOwner){
+
+        viewModel.toastText.observe(viewLifecycleOwner) {
             it.getContentIfNotHandled()?.let { toastText ->
-                Toast.makeText(context, toastText, Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    context,
+                    toastText,
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }
 
@@ -70,7 +75,11 @@ class DetailFragment : Fragment() {
             tvAuthor.text = resources.getString(R.string.author, eventDetail.ownerName)
             tvSummary.text = eventDetail.summary
             tvBeginTime.text = resources.getString(R.string.begin_time, eventDetail.beginTime)
-            tvQuota.text = resources.getString(R.string.quota, eventDetail.quota)
+            var quotaRemainder = 0
+            if(eventDetail.quota != null && eventDetail.registrants != null){
+                quotaRemainder = eventDetail.quota - eventDetail.registrants
+            }
+            tvQuota.text = resources.getString(R.string.quota_remainder, quotaRemainder)
             tvDescription.text = HtmlCompat.fromHtml(
                 eventDetail.description.toString(),
                 HtmlCompat.FROM_HTML_MODE_LEGACY

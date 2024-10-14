@@ -74,6 +74,7 @@ class FinishedViewModel : ViewModel() {
 
             override fun onFailure(call: Call<EventResponse>, t: Throwable) {
                 _isLoading.value = false
+                _toastText.value = Event(t.message.toString())
                 Log.e(TAG, "onFailure: ${t.message}")
                 _toastText.value = Event(t.message.toString())
             }

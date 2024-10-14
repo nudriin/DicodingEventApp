@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.nudriin.dicodingeventapp.HomeFinishedListAdapter
@@ -47,6 +48,16 @@ class HomeFragment : Fragment() {
             setFinishedEventList(eventList)
         }
 
+        viewModel.toastText.observe(viewLifecycleOwner) {
+            it.getContentIfNotHandled()?.let { toastText ->
+                Toast.makeText(
+                    context,
+                    toastText,
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        }
+
         val url = "https://dicoding-web-img.sgp1.cdn.digitaloceanspaces.com/original/commons/event-ui-logo.png"
         Glide.with(binding.root.context)
             .load(url)
@@ -59,6 +70,11 @@ class HomeFragment : Fragment() {
         }
     }
 
+    private fun moveToDetail(eventId: String) {
+        val toDetail = HomeFragmentDirections.actionNavigationHomeToDetailFragment(eventId)
+        Navigation.findNavController(binding.root).navigate(toDetail)
+    }
+
     private fun setUpcomingEventList(eventList: List<ListEventsItem>){
         val adapter = HomeListAdapter()
         val max5 = eventList.take(5)
@@ -66,7 +82,7 @@ class HomeFragment : Fragment() {
         binding.rvUpcoming.adapter = adapter
         adapter.setOnItemClickCallback(object : HomeListAdapter.OnItemClickCallback{
             override fun onItemClicked(eventId: String) {
-//                moveToDetail(eventId)
+                moveToDetail(eventId)
             }
         })
     }
@@ -77,7 +93,7 @@ class HomeFragment : Fragment() {
         binding.rvFinished.adapter = adapter
         adapter.setOnItemClickCallback(object : HomeFinishedListAdapter.OnItemClickCallback{
             override fun onItemClicked(eventId: String) {
-//                moveToDetail(eventId)
+                moveToDetail(eventId)
             }
         })
     }
@@ -89,6 +105,7 @@ class HomeFragment : Fragment() {
             binding.progressBar.visibility = View.GONE
         }
     }
+
 
     override fun onDestroyView() {
         super.onDestroyView()
