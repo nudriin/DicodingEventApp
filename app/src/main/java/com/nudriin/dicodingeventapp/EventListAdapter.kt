@@ -35,13 +35,18 @@ class EventListAdapter: ListAdapter<ListEventsItem, EventListAdapter.ViewHolder>
     }
     class ViewHolder(val binding: EventCardBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(event: ListEventsItem) {
-            Glide.with(binding.root.context)
-                .load(event.mediaCover)
-                .into(binding.eventImg)
+            with(binding) {
+                Glide.with(root.context)
+                    .load(event.mediaCover)
+                    .into(eventImg)
 
-            binding.tvTitle.text = event.name
-            binding.tvAuthor.text = event.ownerName
-            binding.tvSummary.text = event.summary
+                tvTitle.text = event.name
+                tvBeginTime.text = event.beginTime
+                tvAuthor.text = root.resources.getString(R.string.author, event.ownerName)
+                tvSummary.text = event.summary
+                tvLocation.text = root.resources.getString(R.string.location, event.cityName)
+                tvQuota.text = root.resources.getString(R.string.quota, event.quota)
+            }
         }
     }
 
