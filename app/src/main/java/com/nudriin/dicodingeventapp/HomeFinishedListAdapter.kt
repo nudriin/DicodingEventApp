@@ -49,12 +49,12 @@ class HomeFinishedListAdapter : ListAdapter<ListEventsItem, HomeFinishedListAdap
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeFinishedListAdapter.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = HomeEventFinishedCardBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: HomeFinishedListAdapter.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val event = getItem(position)
         holder.bind(event)
         holder.itemView.setOnClickListener {
