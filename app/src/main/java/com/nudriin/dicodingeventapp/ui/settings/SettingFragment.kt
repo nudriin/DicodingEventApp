@@ -6,6 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.lifecycle.ViewModelProvider
+import com.nudriin.dicodingeventapp.SettingPreferences
+import com.nudriin.dicodingeventapp.ViewModelFactory
+import com.nudriin.dicodingeventapp.dataStore
 import com.nudriin.dicodingeventapp.databinding.FragmentSettingBinding
 
 class SettingFragment : Fragment() {
@@ -23,15 +27,23 @@ class SettingFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val switchTheme = binding.switchTheme
 
-        switchTheme.setOnCheckedChangeListener {_, isChecked: Boolean ->
-            if(isChecked) {
+        val preferences = SettingPreferences.getInstance(requireActivity().application.dataStore)
+        val viewModel = ViewModelProvider(this, ViewModelFactory(preferences)).get(
+            SettingViewModel::class.java
+        )
+
+        viewModel.getThemeSettings().observe(viewLifecycleOwner) {isDarkMode ->
+            if(isDarkMode) {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
                 switchTheme.isChecked = true
             } else {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
                 switchTheme.isChecked = false
             }
+        }
 
+        switchTheme.setOnCheckedChangeListener {_, isChecked: Boolean ->
+            viewModel.saveThemeSettings(isChecked)
         }
     }
 }

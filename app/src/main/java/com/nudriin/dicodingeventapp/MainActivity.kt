@@ -4,6 +4,9 @@ import android.os.Bundle
 import android.view.View
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
@@ -11,6 +14,8 @@ import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.search.SearchBar
 import com.google.android.material.search.SearchView
 import com.nudriin.dicodingeventapp.databinding.ActivityMainBinding
+import com.nudriin.dicodingeventapp.ui.settings.SettingViewModel
+import kotlinx.coroutines.launch
 
 
 class MainActivity : AppCompatActivity(), SearchBarListener {
@@ -28,6 +33,7 @@ class MainActivity : AppCompatActivity(), SearchBarListener {
 
         val navView: BottomNavigationView = binding.navView
 
+
         val navController = findNavController(R.id.nav_host_fragment_activity_main)
         val appBarConfiguration = AppBarConfiguration(
             setOf(
@@ -39,6 +45,20 @@ class MainActivity : AppCompatActivity(), SearchBarListener {
 
         with(binding) {
             searchView.setupWithSearchBar(searchBar)
+        }
+
+        val preferences = SettingPreferences.getInstance(application.dataStore)
+        val viewModel = ViewModelProvider(this, ViewModelFactory(preferences)).get(
+            SettingViewModel::class.java
+        )
+        lifecycleScope.launch {
+            viewModel.getThemeSettings().observe(this@MainActivity) {isDarkMode ->
+                if(isDarkMode) {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                } else {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                }
+            }
         }
     }
 
