@@ -15,5 +15,8 @@
     <string name="header_paragraph">Tingkatkan kemampuan teknis sekaligus membuka jaringan dengan developer terbaik melalui seminar atau workshop yang diselenggarakan oleh partner Dicoding.</string>
     <string name="upcoming_title">Upcoming Event</string>
     <string name="finished_title">Successful Event</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="dark_mode">Dark Mode</string>
+    <string name="title_settings">Settings</string>
 
 </resources>

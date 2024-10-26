@@ -43,4 +43,11 @@
             android:name="eventId"
             app:argType="string" />
     </fragment>
+    <fragment
+        android:id="@+id/navigation_settings"
+        android:name="com.nudriin.dicodingeventapp.ui.settings.SettingFragment"
+        android:label="fragment_setting"
+        tools:layout="@layout/fragment_setting" />
+
+
 </navigation>
