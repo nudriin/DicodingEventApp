@@ -14,19 +14,33 @@ class EventsRepository private constructor(
     fun setFavoriteEvent(event: EventEntity) {
         appExecutors.diskIO.execute{
             event.isFavorite = true
-            eventDao.insertFavoriteEvent(event)
+            eventDao.insertEvent(event)
         }
     }
 
     fun getFavoriteEvent(): LiveData<List<EventEntity>>{
-        return eventDao.getFavoriteEvents()
+        return eventDao.getAllEvents()
     }
 
     fun getFavoriteEventById(id: Int): LiveData<EventEntity> {
-        return eventDao.getFavoriteEventById(id)
+        return eventDao.getEventById(id)
     }
 
     fun deleteFavoriteEventById(id: Int) {
         eventDao.deleteEventById(id)
+    }
+
+    companion object {
+        @Volatile
+        private var INSTANCE: EventsRepository? = null
+
+        fun getInstance(
+            apiService: ApiService,
+            eventDao: EventDao,
+            appExecutors: AppExecutors
+        ): EventsRepository =
+            INSTANCE ?: synchronized(this) {
+                INSTANCE ?: EventsRepository(apiService, eventDao, appExecutors)
+            }.also { INSTANCE = it }
     }
 }
