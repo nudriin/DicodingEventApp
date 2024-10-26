@@ -26,5 +26,5 @@ interface EventDao {
     fun deleteAll()
 
     @Query("SELECT EXISTS(SELECT * FROM events WHERE id = :id AND favorite = 1)")
-    fun isNewsBookmarked(id: String): Boolean
+    fun isEventsFavorite(id: Int): Boolean
 }
