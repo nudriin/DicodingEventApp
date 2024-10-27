@@ -28,9 +28,7 @@ class SettingFragment : Fragment() {
         val switchTheme = binding.switchTheme
 
         val preferences = SettingPreferences.getInstance(requireActivity().application.dataStore)
-        val viewModel = ViewModelProvider(this, ViewModelFactory(preferences)).get(
-            SettingViewModel::class.java
-        )
+        val viewModel = ViewModelProvider(this, ViewModelFactory(preferences))[SettingViewModel::class.java]
 
         viewModel.getThemeSettings().observe(viewLifecycleOwner) {isDarkMode ->
             if(isDarkMode) {

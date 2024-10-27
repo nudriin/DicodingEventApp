@@ -48,9 +48,7 @@ class MainActivity : AppCompatActivity(), SearchBarListener {
         }
 
         val preferences = SettingPreferences.getInstance(application.dataStore)
-        val viewModel = ViewModelProvider(this, ViewModelFactory(preferences)).get(
-            SettingViewModel::class.java
-        )
+        val viewModel = ViewModelProvider(this, ViewModelFactory(preferences))[SettingViewModel::class.java]
         lifecycleScope.launch {
             viewModel.getThemeSettings().observe(this@MainActivity) {isDarkMode ->
                 if(isDarkMode) {

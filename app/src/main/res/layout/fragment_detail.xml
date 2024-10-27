@@ -78,7 +78,8 @@
                 android:backgroundTint="?attr/colorPrimary"
                 android:translationZ="10dp"
                 android:layout_gravity="end"
-                app:srcCompat="@drawable/ic_star_border" />
+                app:srcCompat="@drawable/ic_star_border"
+                tools:ignore="ContentDescription" />
         </FrameLayout>
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/container"

@@ -57,14 +57,6 @@ class FavoriteFragment : Fragment() {
         })
     }
 
-    private fun showLoading(isLoading: Boolean) {
-        if (isLoading) {
-            binding.progressBar.visibility = View.VISIBLE
-        } else {
-            binding.progressBar.visibility = View.GONE
-        }
-    }
-
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

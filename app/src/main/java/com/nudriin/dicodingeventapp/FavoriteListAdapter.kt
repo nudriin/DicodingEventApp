@@ -9,13 +9,13 @@ import com.bumptech.glide.Glide
 import com.nudriin.dicodingeventapp.data.local.entity.EventEntity
 import com.nudriin.dicodingeventapp.databinding.EventCardBinding
 
-class FavoriteListAdapter: ListAdapter<EventEntity, FavoriteListAdapter.ViewHolder>(FavoriteListAdapter.DIFF_CALLBACK) {
+class FavoriteListAdapter: ListAdapter<EventEntity, FavoriteListAdapter.ViewHolder>(DIFF_CALLBACK) {
 
     interface OnItemClickCallback {
         fun onItemClicked(eventId: String)
     }
 
-    private lateinit var onItemClickCallback: FavoriteListAdapter.OnItemClickCallback
+    private lateinit var onItemClickCallback: OnItemClickCallback
 
     companion object {
         val DIFF_CALLBACK = object : DiffUtil.ItemCallback<EventEntity>() {
@@ -34,12 +34,12 @@ class FavoriteListAdapter: ListAdapter<EventEntity, FavoriteListAdapter.ViewHold
             }
         }
     }
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavoriteListAdapter.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = EventCardBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return FavoriteListAdapter.ViewHolder(binding)
+        return ViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: FavoriteListAdapter.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val event = getItem(position)
         holder.bind(event)
         holder.itemView.setOnClickListener {
@@ -64,7 +64,7 @@ class FavoriteListAdapter: ListAdapter<EventEntity, FavoriteListAdapter.ViewHold
         }
     }
 
-    fun setOnItemClickCallback(onItemClickCallback: FavoriteListAdapter.OnItemClickCallback) {
+    fun setOnItemClickCallback(onItemClickCallback: OnItemClickCallback) {
         this.onItemClickCallback = onItemClickCallback
     }
 
