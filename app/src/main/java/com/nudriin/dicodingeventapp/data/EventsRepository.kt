@@ -22,7 +22,7 @@ class EventsRepository private constructor(
         return eventDao.getAllEvents()
     }
 
-    fun getFavoriteEventById(id: Int): LiveData<EventEntity> {
+    fun getFavoriteEventById(id: Int): LiveData<EventEntity?> {
         return eventDao.getEventById(id)
     }
 

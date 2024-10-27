@@ -26,7 +26,7 @@ interface EventDao {
     fun deleteAll()
 
     @Query("SELECT * FROM events WHERE id = :id")
-    fun getEventById(id: Int): LiveData<EventEntity>
+    fun getEventById(id: Int): LiveData<EventEntity?>
 
     @Query("DELETE FROM events WHERE id = :id")
     fun deleteEventById(id: Int)

@@ -12,12 +12,12 @@ import androidx.core.text.HtmlCompat
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
 import com.nudriin.dicodingeventapp.R
+import com.nudriin.dicodingeventapp.ViewModelFactory
 import com.nudriin.dicodingeventapp.data.response.Event
 import com.nudriin.dicodingeventapp.databinding.FragmentDetailBinding
 
 class DetailFragment : Fragment() {
     private var _binding: FragmentDetailBinding? = null
-    private val viewModel: DetailViewModel by viewModels<DetailViewModel>()
     private val binding get() = _binding!!
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,7 +30,12 @@ class DetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val id = DetailFragmentArgs.fromBundle(arguments as Bundle).eventId
+        val id: String = DetailFragmentArgs.fromBundle(arguments as Bundle).eventId
+
+        val factory: ViewModelFactory = ViewModelFactory.getInstance(requireContext())
+        val viewModel: DetailViewModel by viewModels {
+            factory
+        }
 
         viewModel.isLoading.observe(viewLifecycleOwner){
             showLoading(it)
@@ -40,6 +45,17 @@ class DetailFragment : Fragment() {
         viewModel.eventDetail.observe(viewLifecycleOwner){ event ->
             if (event != null) {
                 setEventDetail(event)
+                binding.fabAdd.setOnClickListener {
+                    viewModel.setFavoriteEvent()
+                }
+            }
+        }
+
+        viewModel.getEventById(id.toInt()).observe(viewLifecycleOwner) {eventEntity ->
+            if(eventEntity != null){
+                binding.fabAdd.setImageResource(R.drawable.ic_star)
+            } else {
+                binding.fabAdd.setImageResource(R.drawable.ic_star_border)
             }
         }
 
