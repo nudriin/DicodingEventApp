@@ -2,9 +2,11 @@ package com.nudriin.dicodingeventapp.data.local.entity
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
+import androidx.room.PrimaryKey
 
 @Entity(tableName = "events")
 data class EventEntity(
+    @PrimaryKey
     @ColumnInfo(name = "id")
     var id: Int,
 

@@ -65,7 +65,20 @@
                     app:layout_constraintStart_toEndOf="@id/tvQuota"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:text="20-12-2024" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fab_add"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:foregroundGravity="bottom"
+                app:fabSize="normal"
+                android:foregroundTint="@color/dark"
+                android:backgroundTint="?attr/colorPrimary"
+                android:translationZ="10dp"
+                android:layout_gravity="end"
+                app:srcCompat="@drawable/ic_star_border" />
         </FrameLayout>
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/container"
