@@ -16,7 +16,6 @@ import com.nudriin.dicodingeventapp.ViewModelFactory
 import com.nudriin.dicodingeventapp.data.Result
 import com.nudriin.dicodingeventapp.data.response.ListEventsItem
 import com.nudriin.dicodingeventapp.databinding.FragmentHomeBinding
-import com.nudriin.dicodingeventapp.ui.detail.DetailViewModel
 
 class HomeFragment : Fragment() {
 
@@ -57,7 +56,14 @@ class HomeFragment : Fragment() {
                     }
 
                     is Result.Error -> {
-                        result.
+                        showLoading(false)
+                        result.error.getContentIfNotHandled().let {toastText ->
+                            Toast.makeText(
+                                context,
+                                toastText,
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
                     }
                 }
             }
@@ -93,12 +99,6 @@ class HomeFragment : Fragment() {
         Glide.with(binding.root.context)
             .load(url)
             .into(binding.dicodingImg)
-
-//        viewModel.toastText.observe(viewLifecycleOwner){
-//            it.getContentIfNotHandled()?.let { toastText ->
-//                Toast.makeText(context, toastText, Toast.LENGTH_SHORT).show()
-//            }
-//        }
     }
 
     private fun moveToDetail(eventId: String) {
