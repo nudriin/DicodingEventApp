@@ -12,14 +12,16 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.nudriin.dicodingeventapp.HomeFinishedListAdapter
 import com.nudriin.dicodingeventapp.HomeListAdapter
+import com.nudriin.dicodingeventapp.ViewModelFactory
+import com.nudriin.dicodingeventapp.data.Result
 import com.nudriin.dicodingeventapp.data.response.ListEventsItem
 import com.nudriin.dicodingeventapp.databinding.FragmentHomeBinding
+import com.nudriin.dicodingeventapp.ui.detail.DetailViewModel
 
 class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: HomeViewModel by viewModels<HomeViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -37,24 +39,53 @@ class HomeFragment : Fragment() {
         val verticalLayoutManager = LinearLayoutManager(context)
         binding.rvFinished.layoutManager = verticalLayoutManager
 
-        viewModel.isLoading.observe(viewLifecycleOwner){
-            showLoading(it)
+        val factory: ViewModelFactory = ViewModelFactory.getInstance(requireContext())
+        val viewModel: HomeViewModel by viewModels {
+            factory
         }
 
-        viewModel.upcomingEventList.observe(viewLifecycleOwner){eventList ->
-            setUpcomingEventList(eventList)
-        }
-        viewModel.finishedEventList.observe(viewLifecycleOwner){eventList ->
-            setFinishedEventList(eventList)
+        viewModel.getUpcomingEvent().observe(viewLifecycleOwner) { result ->
+            if(result != null){
+                when(result) {
+                    is Result.Loading -> {
+                        showLoading(true)
+                    }
+
+                    is Result.Success -> {
+                        showLoading(false)
+                        setUpcomingEventList(result.data)
+                    }
+
+                    is Result.Error -> {
+                        result.
+                    }
+                }
+            }
         }
 
-        viewModel.toastText.observe(viewLifecycleOwner) {
-            it.getContentIfNotHandled()?.let { toastText ->
-                Toast.makeText(
-                    context,
-                    toastText,
-                    Toast.LENGTH_SHORT
-                ).show()
+        viewModel.getFinishedEvent().observe(viewLifecycleOwner) { result ->
+            if(result != null){
+                when(result) {
+                    is Result.Loading -> {
+                        showLoading(true)
+                    }
+
+                    is Result.Success -> {
+                        showLoading(false)
+                        setFinishedEventList(result.data)
+                    }
+
+                    is Result.Error -> {
+                        showLoading(false)
+                        result.error.getContentIfNotHandled().let {toastText ->
+                            Toast.makeText(
+                                context,
+                                toastText,
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                    }
+                }
             }
         }
 
@@ -63,11 +94,11 @@ class HomeFragment : Fragment() {
             .load(url)
             .into(binding.dicodingImg)
 
-        viewModel.toastText.observe(viewLifecycleOwner){
-            it.getContentIfNotHandled()?.let { toastText ->
-                Toast.makeText(context, toastText, Toast.LENGTH_SHORT).show()
-            }
-        }
+//        viewModel.toastText.observe(viewLifecycleOwner){
+//            it.getContentIfNotHandled()?.let { toastText ->
+//                Toast.makeText(context, toastText, Toast.LENGTH_SHORT).show()
+//            }
+//        }
     }
 
     private fun moveToDetail(eventId: String) {

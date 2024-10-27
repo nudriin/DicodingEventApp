@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.nudriin.dicodingeventapp.data.EventsRepository
 import com.nudriin.dicodingeventapp.ui.detail.DetailViewModel
 import com.nudriin.dicodingeventapp.ui.favorite.FavoriteViewModel
+import com.nudriin.dicodingeventapp.ui.home.HomeViewModel
 import com.nudriin.dicodingeventapp.ui.settings.SettingViewModel
 
 class ViewModelFactory(
@@ -20,6 +21,8 @@ class ViewModelFactory(
             return DetailViewModel(eventsRepository!!) as T
         } else if (modelClass.isAssignableFrom(FavoriteViewModel::class.java)) {
             return FavoriteViewModel(eventsRepository!!) as T
+        } else if (modelClass.isAssignableFrom(HomeViewModel::class.java)) {
+            return HomeViewModel(eventsRepository!!) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
     }
