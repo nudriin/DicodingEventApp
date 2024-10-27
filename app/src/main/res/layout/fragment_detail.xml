@@ -74,7 +74,7 @@
                 android:layout_margin="16dp"
                 android:foregroundGravity="bottom"
                 app:fabSize="normal"
-                android:foregroundTint="@color/dark"
+                app:tint="@color/dark"
                 android:backgroundTint="?attr/colorPrimary"
                 android:translationZ="10dp"
                 android:layout_gravity="end"
