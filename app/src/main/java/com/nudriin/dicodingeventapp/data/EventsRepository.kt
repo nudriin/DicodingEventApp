@@ -27,7 +27,9 @@ class EventsRepository private constructor(
     }
 
     fun deleteFavoriteEventById(id: Int) {
-        eventDao.deleteEventById(id)
+        appExecutors.diskIO.execute {
+            eventDao.deleteEventById(id)
+        }
     }
 
     companion object {

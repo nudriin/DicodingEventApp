@@ -86,5 +86,9 @@ class DetailViewModel(private val eventRepository: EventsRepository) : ViewModel
         return eventRepository.getFavoriteEventById(id)
     }
 
+    fun deleteEventById(id: Int) {
+        eventRepository.deleteFavoriteEventById(id)
+    }
+
 
 }

@@ -45,17 +45,20 @@ class DetailFragment : Fragment() {
         viewModel.eventDetail.observe(viewLifecycleOwner){ event ->
             if (event != null) {
                 setEventDetail(event)
-                binding.fabAdd.setOnClickListener {
-                    viewModel.setFavoriteEvent()
-                }
             }
         }
 
         viewModel.getEventById(id.toInt()).observe(viewLifecycleOwner) {eventEntity ->
             if(eventEntity != null){
                 binding.fabAdd.setImageResource(R.drawable.ic_star)
+                binding.fabAdd.setOnClickListener {
+                    viewModel.deleteEventById(eventEntity.id)
+                }
             } else {
                 binding.fabAdd.setImageResource(R.drawable.ic_star_border)
+                binding.fabAdd.setOnClickListener {
+                    viewModel.setFavoriteEvent()
+                }
             }
         }
 
